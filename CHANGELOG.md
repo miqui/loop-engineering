@@ -3,6 +3,23 @@
 All notable changes to the prompts in this repo are documented here.
 Versions are tagged in git and published as GitHub Releases.
 
+## [1.3.0] - 2026-08-05
+
+`hermes-project-kickoff.md`:
+
+- Phase 0 existing-project survey now also checks CI signal presence
+  (detection only — no plan step is forced by absence, unlike the
+  test-runner check). Two-tier detection: first a markdown file
+  documenting CI guidance (CONTRIBUTING.md, docs/development.md,
+  docs/ci*.md, or a README section); if none exists, infer from CI config
+  artifacts (`.github/workflows/`, `.gitlab-ci.yml`, `.circleci/config.yml`,
+  `Jenkinsfile`, `azure-pipelines.yml`) and, if applicable, Bazel
+  build/test files (`WORKSPACE`, `WORKSPACE.bazel`, `MODULE.bazel`,
+  `BUILD.bazel`, `.bazelrc`).
+- For multi-language, multi-platform, or monorepo-style projects, CI
+  configs are enumerated per language/package/service rather than
+  assumed to be a single pipeline; gaps are noted explicitly.
+
 ## [1.2.1] - 2026-08-05
 
 `hermes-project-kickoff.md`:
