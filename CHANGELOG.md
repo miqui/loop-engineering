@@ -3,6 +3,15 @@
 All notable changes to the prompts in this repo are documented here.
 Versions are tagged in git and published as GitHub Releases.
 
+## [1.2.1] - 2026-08-05
+
+`hermes-project-kickoff.md`:
+
+- Clarified the Phase 0 test-presence check from v1.2.0: CI config alone is
+  no longer accepted as evidence a test runner exists — it must actually
+  run locally. Treating CI as its own separate signal is deferred to a
+  future version.
+
 ## [1.2.0] - 2026-08-05
 
 `hermes-project-kickoff.md`:

@@ -1,6 +1,6 @@
 ---
 title: Hermes Project Kickoff
-version: 1.2.0
+version: 1.2.1
 status: stable
 date: 2026-08-05
 ---
@@ -16,7 +16,7 @@ Reusable kickoff prompt. Two human-in-the-loop design phases, then persist every
   - Setup steps
        - Derive a <slug> from the project/idea name (kebab-case, e.g. api-deprecation-overlay).
         - Determine the working mode: new project (greenfield) or a new feature in an existing project. If unclear from my request, ask before proceeding.
-        - If working mode is "existing project": before Phase 1 Step 1, survey the existing codebase — read the README/top-level docs, identify language/framework/build tooling, note existing conventions (naming, testing, module boundaries), and skim any modules directly relevant to the requested feature. As part of this, check whether a unit test runner is present and wired (a test script, CI config) and whether it actually runs. Summarize these findings to me as grounding context before restating the problem in Step 1, and state explicitly whether unit tests are present or absent — an absence carries forward into the Phase 2 plan (see below). Do not invent constraints the survey didn't surface, and do not skip the survey to save time.
+        - If working mode is "existing project": before Phase 1 Step 1, survey the existing codebase — read the README/top-level docs, identify language/framework/build tooling, note existing conventions (naming, testing, module boundaries), and skim any modules directly relevant to the requested feature. As part of this, check whether a unit test runner is present, wired via a script/Makefile/documented command, and actually runs locally. CI config alone is not sufficient signal — do not treat CI presence as evidence tests run (CI as its own signal is out of scope for this version). Summarize these findings to me as grounding context before restating the problem in Step 1, and state explicitly whether unit tests are present or absent — an absence carries forward into the Phase 2 plan (see below). Do not invent constraints the survey didn't surface, and do not skip the survey to save time.
         - Before creating any folder, check whether docs/design/<slug>-design.md already exists. If it does, read it along with any docs/plans/<slug>-plan.md. Infer the last completed checkpoint from their status front-matter and, for plans, which Steps are checked off. State that inferred resume point to me explicitly — phase, checkpoint, and last completed build step if applicable — and ask whether to resume from there or start fresh under a new slug. Do not proceed until I choose. Never assume a resume point silently; an incorrect guess here compounds through every later phase.
         - Ensure the docs tree exists; create any missing folders:
         - ```docs/design/``` — refined idea / design briefs
