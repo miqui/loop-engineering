@@ -3,6 +3,17 @@
 All notable changes to the prompts in this repo are documented here.
 Versions are tagged in git and published as GitHub Releases.
 
+## [1.2.0] - 2026-08-05
+
+`hermes-project-kickoff.md`:
+
+- Phase 0 existing-project survey now also checks whether a unit test
+  runner is present and wired, and states that finding explicitly.
+- Phase 2: if the survey found no unit tests, the plan's first step must
+  scope a minimal test scaffold (runner wired + one smoke test) — just
+  enough to unblock the Tests field at later build checkpoints, not a
+  backfill of coverage. No scaffold step is required if tests already exist.
+
 ## [1.1.0] - 2026-08-05
 
 `hermes-project-kickoff.md`:

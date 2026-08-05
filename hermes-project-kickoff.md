@@ -1,6 +1,6 @@
 ---
 title: Hermes Project Kickoff
-version: 1.1.0
+version: 1.2.0
 status: stable
 date: 2026-08-05
 ---
@@ -16,7 +16,7 @@ Reusable kickoff prompt. Two human-in-the-loop design phases, then persist every
   - Setup steps
        - Derive a <slug> from the project/idea name (kebab-case, e.g. api-deprecation-overlay).
         - Determine the working mode: new project (greenfield) or a new feature in an existing project. If unclear from my request, ask before proceeding.
-        - If working mode is "existing project": before Phase 1 Step 1, survey the existing codebase — read the README/top-level docs, identify language/framework/build tooling, note existing conventions (naming, testing, module boundaries), and skim any modules directly relevant to the requested feature. Summarize these findings to me as grounding context before restating the problem in Step 1. Do not invent constraints the survey didn't surface, and do not skip the survey to save time.
+        - If working mode is "existing project": before Phase 1 Step 1, survey the existing codebase — read the README/top-level docs, identify language/framework/build tooling, note existing conventions (naming, testing, module boundaries), and skim any modules directly relevant to the requested feature. As part of this, check whether a unit test runner is present and wired (a test script, CI config) and whether it actually runs. Summarize these findings to me as grounding context before restating the problem in Step 1, and state explicitly whether unit tests are present or absent — an absence carries forward into the Phase 2 plan (see below). Do not invent constraints the survey didn't surface, and do not skip the survey to save time.
         - Before creating any folder, check whether docs/design/<slug>-design.md already exists. If it does, read it along with any docs/plans/<slug>-plan.md. Infer the last completed checkpoint from their status front-matter and, for plans, which Steps are checked off. State that inferred resume point to me explicitly — phase, checkpoint, and last completed build step if applicable — and ask whether to resume from there or start fresh under a new slug. Do not proceed until I choose. Never assume a resume point silently; an incorrect guess here compounds through every later phase.
         - Ensure the docs tree exists; create any missing folders:
         - ```docs/design/``` — refined idea / design briefs
@@ -56,6 +56,8 @@ Phase 2 — writing-plans (no code yet)
 Before beginning plan authoring, summarize the approved direction and component map in three sentences and ask me to confirm that scope has not shifted since checkpoint 3. Do not proceed until I confirm. If I indicate scope has shifted, stop immediately, open a new ADR candidate capturing the scope change, and return to Phase 1 checkpoint 3 before proceeding.
 
 Turn the validated direction into a pre-build implementation plan following the plan skeleton in the appendix. Do not omit any section; do not add sections not in the skeleton without flagging them to me first.
+
+If the Phase 0 survey found the existing project has no unit test runner wired, the plan's first step must scope a minimal test scaffold — wire the test runner and add one passing smoke test, nothing more. Its only job is to unblock the Tests field at later build checkpoints; do not use it to backfill coverage for existing code. If unit tests are already present, no scaffold step is needed.
 Artifact:
 docs/plans/<slug>-plan.md — capture the full plan above, linked back to the design doc and the ADRs that justify it.
 
