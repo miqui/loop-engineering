@@ -1,3 +1,10 @@
+---
+title: Hermes Project Kickoff
+version: 1.0.0
+status: stable
+date: 2026-08-05
+---
+
 Hermes Project Kickoff — idea-refine → writing-plans → docs capture
 Reusable kickoff prompt. Two human-in-the-loop design phases, then persist every design decision as markdown under docs/. No code until the plan is approved. Treat me as an experienced collaborator, not a novice.
 
