@@ -1,6 +1,6 @@
 ---
 title: Hermes Project Kickoff
-version: 1.3.0
+version: 1.3.1
 status: stable
 date: 2026-08-05
 ---
@@ -14,14 +14,24 @@ Reusable kickoff prompt. Two human-in-the-loop design phases, then persist every
   - Uncertainty: If you lack sufficient information to complete any step with confidence, surface the gap explicitly and ask before proceeding. Do not infer or invent unstated requirements.
   - Approval: Treat only explicit approval as a green light. If my response at any checkpoint is ambiguous ("ok", "sure", "looks good"), restate what you understood as approved and ask me to confirm before continuing. Do not proceed on implicit or unclear consent.
   - Setup steps
-       - Derive a <slug> from the project/idea name (kebab-case, e.g. api-deprecation-overlay).
-        - Determine the working mode: new project (greenfield) or a new feature in an existing project. If unclear from my request, ask before proceeding.
-        - If working mode is "existing project": before Phase 1 Step 1, survey the existing codebase — read the README/top-level docs, identify language/framework/build tooling, note existing conventions (naming, testing, module boundaries), and skim any modules directly relevant to the requested feature. As part of this, check whether a unit test runner is present, wired via a script/Makefile/documented command, and actually runs locally. CI config alone is not sufficient signal for this check — do not treat CI presence as evidence tests run locally. Check CI signal presence separately, in two tiers: first look for a markdown file that documents CI guidance (e.g. CONTRIBUTING.md, docs/development.md, a docs/ci*.md, or a dedicated CI section in the README) and treat it as the primary source of truth for how CI is set up; if no such doc exists, infer CI setup directly by scanning for CI config artifacts (`.github/workflows/`, `.gitlab-ci.yml`, `.circleci/config.yml`, `Jenkinsfile`, `azure-pipelines.yml`, etc.), and — if applicable — Bazel build/test orchestration (`WORKSPACE`, `WORKSPACE.bazel`, `MODULE.bazel`, `BUILD.bazel`, `.bazelrc`), since large or monorepo-style projects often drive CI through Bazel targets rather than a single native CI config. For multi-language, multi-platform, or monorepo-style projects, do not assume a single pipeline covers everything — enumerate CI configs per language/package/service and note any gaps (e.g. a package with no corresponding workflow). Summarize both the test-runner and CI findings to me as grounding context before restating the problem in Step 1, and state explicitly whether unit tests and CI are present or absent — an absence carries forward into the Phase 2 plan (see below). Do not invent constraints the survey didn't surface, and do not skip the survey to save time.
-        - Before creating any folder, check whether docs/design/<slug>-design.md already exists. If it does, read it along with any docs/plans/<slug>-plan.md. Infer the last completed checkpoint from their status front-matter and, for plans, which Steps are checked off. State that inferred resume point to me explicitly — phase, checkpoint, and last completed build step if applicable — and ask whether to resume from there or start fresh under a new slug. Do not proceed until I choose. Never assume a resume point silently; an incorrect guess here compounds through every later phase.
-        - Ensure the docs tree exists; create any missing folders:
-        - ```docs/design/``` — refined idea / design briefs
-        - ```docs/decisions/``` — ADRs (one file per discrete decision)
-        - ```docs/plans/``` — pre-build implementation plans
+    1. Derive a `<slug>` from the project/idea name (kebab-case, e.g. `api-deprecation-overlay`).
+    2. Determine the working mode: new project (greenfield) or a new feature in an existing project. If unclear from my request, ask before proceeding.
+    3. If working mode is "existing project," survey the existing codebase before Phase 1 Step 1:
+       - **Codebase survey**: read the README/top-level docs, identify language/framework/build tooling, note existing conventions (naming, testing, module boundaries), and skim any modules directly relevant to the requested feature.
+       - **Unit test check**: confirm a test runner is present, wired via a script/Makefile/documented command, and actually runs locally. CI config alone is not sufficient signal for this check — do not treat CI presence as evidence tests run locally.
+       - **CI signal check** (two-tier, detection only):
+         1. Look for a markdown file that documents CI guidance (e.g. `CONTRIBUTING.md`, `docs/development.md`, a `docs/ci*.md`, or a dedicated CI section in the README) and treat it as the primary source of truth.
+         2. If no such doc exists, infer CI setup directly by scanning for CI config artifacts (`.github/workflows/`, `.gitlab-ci.yml`, `.circleci/config.yml`, `Jenkinsfile`, `azure-pipelines.yml`, etc.), and — if applicable — Bazel build/test orchestration (`WORKSPACE`, `WORKSPACE.bazel`, `MODULE.bazel`, `BUILD.bazel`, `.bazelrc`), since large or monorepo-style projects often drive CI through Bazel targets rather than a single native CI config.
+         - For multi-language, multi-platform, or monorepo-style projects, do not assume a single pipeline covers everything — enumerate CI configs per language/package/service and note any gaps (e.g. a package with no corresponding workflow).
+       - **Report**: summarize the codebase, test-runner, and CI findings to me as grounding context before restating the problem in Step 1. State explicitly whether unit tests and CI are present or absent — an absence carries forward into the Phase 2 plan (see below). Do not invent constraints the survey didn't surface, and do not skip the survey to save time.
+    4. Before creating any folder, check whether `docs/design/<slug>-design.md` already exists. If it does, read it along with any `docs/plans/<slug>-plan.md`:
+       - Infer the last completed checkpoint from their status front-matter and, for plans, which Steps are checked off.
+       - State that inferred resume point to me explicitly — phase, checkpoint, and last completed build step if applicable — and ask whether to resume from there or start fresh under a new slug.
+       - Do not proceed until I choose. Never assume a resume point silently; an incorrect guess here compounds through every later phase.
+    5. Ensure the docs tree exists; create any missing folders:
+       - `docs/design/` — refined idea / design briefs
+       - `docs/decisions/` — ADRs (one file per discrete decision)
+       - `docs/plans/` — pre-build implementation plans
   - Do not write any artifact to disk until its phase's final HITL checkpoint is approved.
 
 

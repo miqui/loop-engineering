@@ -3,6 +3,14 @@
 All notable changes to the prompts in this repo are documented here.
 Versions are tagged in git and published as GitHub Releases.
 
+## [1.3.1] - 2026-08-05
+
+`hermes-project-kickoff.md`:
+
+- Reformatted the Phase 0 "Setup steps" block from run-on paragraphs into a
+  numbered list with nested sub-bullets (Codebase survey / Unit test check /
+  CI signal check / Report). Formatting only, no behavior change.
+
 ## [1.3.0] - 2026-08-05
 
 `hermes-project-kickoff.md`:
