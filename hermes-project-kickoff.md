@@ -1,6 +1,6 @@
 ---
 title: Hermes Project Kickoff
-version: 1.0.0
+version: 1.1.0
 status: stable
 date: 2026-08-05
 ---
@@ -15,7 +15,9 @@ Reusable kickoff prompt. Two human-in-the-loop design phases, then persist every
   - Approval: Treat only explicit approval as a green light. If my response at any checkpoint is ambiguous ("ok", "sure", "looks good"), restate what you understood as approved and ask me to confirm before continuing. Do not proceed on implicit or unclear consent.
   - Setup steps
        - Derive a <slug> from the project/idea name (kebab-case, e.g. api-deprecation-overlay).
-        - Before creating any folder, check whether docs/design/<slug>-design.md already exists. If it does, read it, summarize its current status to me, and ask whether to continue the existing project or start fresh under a new slug. Do not proceed until I choose.
+        - Determine the working mode: new project (greenfield) or a new feature in an existing project. If unclear from my request, ask before proceeding.
+        - If working mode is "existing project": before Phase 1 Step 1, survey the existing codebase — read the README/top-level docs, identify language/framework/build tooling, note existing conventions (naming, testing, module boundaries), and skim any modules directly relevant to the requested feature. Summarize these findings to me as grounding context before restating the problem in Step 1. Do not invent constraints the survey didn't surface, and do not skip the survey to save time.
+        - Before creating any folder, check whether docs/design/<slug>-design.md already exists. If it does, read it along with any docs/plans/<slug>-plan.md. Infer the last completed checkpoint from their status front-matter and, for plans, which Steps are checked off. State that inferred resume point to me explicitly — phase, checkpoint, and last completed build step if applicable — and ask whether to resume from there or start fresh under a new slug. Do not proceed until I choose. Never assume a resume point silently; an incorrect guess here compounds through every later phase.
         - Ensure the docs tree exists; create any missing folders:
         - ```docs/design/``` — refined idea / design briefs
         - ```docs/decisions/``` — ADRs (one file per discrete decision)
@@ -82,6 +84,7 @@ Next: <step N+1 title, or "implementation complete" if this was the last step>
 Review focus: do the changed files match the planned inventory? does the interface delta match what the plan specified? are acceptance criteria met for this step?
 Build phase rules
 Do not begin step N+1 until I explicitly confirm step N is complete.
+Once step N is confirmed complete, check it off in docs/plans/<slug>-plan.md's Steps section before starting step N+1. This file is the source of truth for resuming an interrupted build — do not rely on chat history to know which steps are done.
 Never work around a problem silently — surface every unexpected constraint, missing dependency, or wrong assumption before continuing.
 If implementation reveals a design flaw (wrong component boundary, missing contract, incorrect interface assumption), stop immediately and ask whether to resolve it inline with a new ADR or return to Phase 2. If returning to Phase 2 for a second time on the same flaw, escalate to Phase 1 instead — treat the flaw as a new constraint on the direction decision and work through Steps 1–3 before rewriting the plan.
 If three or more steps have deviated from the plan — where a deviation means different files touched, different interface exposed, or different approach taken than the plan specified — stop and propose a plan revision before continuing.
@@ -219,9 +222,11 @@ implements. Link to the design doc and every ADR that governs a plan decision.
 
 Ordered implementation steps. Each step names the module(s) it touches and
 
-cites any governing ADR.
+cites any governing ADR. Checkboxes are the source of truth for resuming an
 
-1. **<Step title>** — `<module>` — <one-sentence description>
+interrupted build — check a step off only once its build checkpoint is confirmed.
+
+1. [ ] **<Step title>** — `<module>` — <one-sentence description>
 
    - ADR: [NNNN](../decisions/NNNN-short.md) or `TBD`
 
