@@ -1,6 +1,6 @@
 ---
 title: Hermes Project Kickoff
-version: 1.3.2
+version: 1.3.3
 status: stable
 date: 2026-08-05
 ---
@@ -66,14 +66,15 @@ Work through the three steps below in sequence. Each checkpoint is embedded at t
 - For each discrete decision I weighed in on, write an ADR: `docs/decisions/NNNN-<short-title>.md` (zero-padded, incrementing, never reused).
 
 
-Phase 2 — writing-plans (no code yet)
+### Phase 2 — writing-plans (no code yet)
 Before beginning plan authoring, summarize the approved direction and component map in three sentences and ask me to confirm that scope has not shifted since checkpoint 3. Do not proceed until I confirm. If I indicate scope has shifted, stop immediately, open a new ADR candidate capturing the scope change, and return to Phase 1 checkpoint 3 before proceeding.
 
 Turn the validated direction into a pre-build implementation plan following the plan skeleton in the appendix. Do not omit any section; do not add sections not in the skeleton without flagging them to me first.
 
 If the Phase 0 survey found the existing project has no unit test runner wired, the plan's first step must scope a minimal test scaffold — wire the test runner and add one passing smoke test, nothing more. Its only job is to unblock the Tests field at later build checkpoints; do not use it to backfill coverage for existing code. If unit tests are already present, no scaffold step is needed.
-Artifact:
-docs/plans/<slug>-plan.md — capture the full plan above, linked back to the design doc and the ADRs that justify it.
+
+**Artifact:**
+- `docs/plans/<slug>-plan.md` — capture the full plan above, linked back to the design doc and the ADRs that justify it.
 
 Do not code yet. Before presenting the plan for review, enumerate every remaining TBD entry in the Key decisions section. For each, provide a proposed resolution or flag it explicitly as a pre-build blocker requiring my decision. A plan may be presented with open TBDs only if each is accompanied by a concrete proposal; a plan with silent or unaddressed TBDs must not be presented or handed to a build agent.
 

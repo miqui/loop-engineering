@@ -3,6 +3,14 @@
 All notable changes to the prompts in this repo are documented here.
 Versions are tagged in git and published as GitHub Releases.
 
+## [1.3.3] - 2026-08-05
+
+`hermes-project-kickoff.md`:
+
+- Reformatted Phase 2 (writing-plans): added a `###` phase heading and
+  bolded/bulleted the Artifact label with a backtick'd path. Formatting
+  only, no behavior change.
+
 ## [1.3.2] - 2026-08-05
 
 `hermes-project-kickoff.md`:
