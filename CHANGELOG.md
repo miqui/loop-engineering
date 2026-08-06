@@ -3,6 +3,16 @@
 All notable changes to the prompts in this repo are documented here.
 Versions are tagged in git and published as GitHub Releases.
 
+## [1.3.6] - 2026-08-05
+
+`hermes-project-kickoff.md`:
+
+- Reformatted the Appendix (copy-paste templates): `###` Appendix heading,
+  `####` sub-headings for Front-matter template / ADR skeleton / Component
+  map skeleton / Plan skeleton, fenced the YAML/markdown snippets as code
+  blocks, bulleted the ADR field list and component-map rules, and removed
+  stray blank-line spacing. Formatting only, no behavior change.
+
 ## [1.3.5] - 2026-08-05
 
 `hermes-project-kickoff.md`:

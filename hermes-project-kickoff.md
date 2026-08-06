@@ -1,6 +1,6 @@
 ---
 title: Hermes Project Kickoff
-version: 1.3.5
+version: 1.3.6
 status: stable
 date: 2026-08-05
 ---
@@ -124,177 +124,121 @@ When the final step is confirmed complete, update `docs/plans/<slug>-plan.md` us
 - **Pre-write gate**: confirm the exact target paths with me before the first write of each phase.
 
 
-Appendix — copy-paste templates
-Front-matter
----
+### Appendix — copy-paste templates
 
+#### Front-matter template
+
+```yaml
+---
 title: <human-readable title>
-
 status: draft        # draft | proposed | accepted | superseded | implemented (plan docs only)
-
 date: <YYYY-MM-DD>
-
 owner: miqui
-
 slug: <slug>
-
 related: []          # paths to sibling design / ADR / plan files
-
 ---
-ADR skeleton (docs/decisions/NNNN-<short-title>.md)
----
+```
 
+#### ADR skeleton (`docs/decisions/NNNN-<short-title>.md`)
+
+```yaml
+---
 title: <decision title>
-
 status: proposed
-
 date: <YYYY-MM-DD>
-
 owner: miqui
-
 slug: <slug>
-
 related: []
-
 ---
+```
 
-## Context
+- **Context**: what forces are at play; what made this a decision worth recording.
+- **Decision**: the choice, stated in one or two sentences.
+- **Status**: `proposed` | `accepted` | `superseded by NNNN`
+- **Consequences**: what becomes easier, harder, or constrained as a result.
+- **Alternatives considered**: the options that were weighed and why they lost.
 
-What forces are at play; what made this a decision worth recording.
+#### Component map skeleton (embedded in `docs/design/<slug>-design.md`)
 
-## Decision
-
-The choice, stated in one or two sentences.
-
-## Status
-
-proposed | accepted | superseded by NNNN
-
-## Consequences
-
-What becomes easier, harder, or constrained as a result.
-
-## Alternatives considered
-
-The options that were weighed and why they lost.
-Component map skeleton (embedded in docs/design/<slug>-design.md)
+```markdown
 ## Component map
 
 | Module | Responsibility | Contracts / interfaces |
-
 |--------|---------------|------------------------|
-
 | `<module-name>` | <one-line description of what it owns> | <what it exposes or consumes: API surface, event, queue, schema, etc.> |
+```
 
 Rules for the component map:
+- One row per top-level module — do not list sub-components here.
+- "Contracts / interfaces" must be concrete: a REST endpoint, a Go interface, a Kafka topic name, a database schema, a shared type — not a vague description like "communicates with."
+- If a contract does not yet have a name, flag it as `TBD` — decision needed so it surfaces as a checkpoint item, not a silent assumption.
+- Every `TBD — decision needed` entry automatically becomes a named agenda item at checkpoint 3. Hermes must enumerate every TBD, propose a concrete resolution for each, and receive explicit approval on each one before the direction is finalized. Unresolved TBDs block artifact writing.
+- The component map is presented at HITL checkpoint 3 alongside the direction recommendation. Both must be confirmed before artifact writing begins.
 
-One row per top-level module — do not list sub-components here.
-"Contracts / interfaces" must be concrete: a REST endpoint, a Go interface, a Kafka topic name, a database schema, a shared type — not a vague description like "communicates with."
-If a contract does not yet have a name, flag it as TBD — decision needed so it surfaces as a checkpoint item, not a silent assumption.
-Every TBD — decision needed entry automatically becomes a named agenda item at checkpoint 3. Hermes must enumerate every TBD, propose a concrete resolution for each, and receive explicit approval on each one before the direction is finalized. Unresolved TBDs block artifact writing.
-The component map is presented at HITL checkpoint 3 alongside the direction recommendation. Both must be confirmed before artifact writing begins.
-
-### Plan skeleton (`docs/plans/<slug>-plan.md`)
+#### Plan skeleton (`docs/plans/<slug>-plan.md`)
 
 ```yaml
-
 ---
-
 title: <human-readable title>
-
 status: draft
-
 date: <YYYY-MM-DD>
-
 owner: miqui
-
 slug: <slug>
-
 related:
-
   - docs/design/<slug>-design.md
-
   - docs/decisions/NNNN-<short-title>.md   # one line per driving ADR
-
 ---
 
 ## Overview
-
 One paragraph: what gets built, why, and which approved direction this
-
 implements. Link to the design doc and every ADR that governs a plan decision.
 
 ## Technical constraints
-
 - Runtime / language: <e.g. Go 1.22, Python 3.12, Node 22 — be specific>
-
 - Key dependencies: <package@version, external API URL, schema location>
-
 - Banned approaches: <anything ruled out in design or by an ADR>
 
 ## Steps
-
 Ordered implementation steps. Each step names the module(s) it touches and
-
 cites any governing ADR. Checkboxes are the source of truth for resuming an
-
 interrupted build — check a step off only once its build checkpoint is confirmed.
 
 1. [ ] **<Step title>** — `<module>` — <one-sentence description>
-
    - ADR: [NNNN](../decisions/NNNN-short.md) or `TBD`
 
 ## File inventory
-
 | File path | Module | Change type | Interface delta |
-
 |-----------|--------|-------------|-----------------|
-
 | `<path/to/file>` | `<module>` | new / modify / delete | <before→after signature — e.g. `+ POST /items → {id, name}` or `+ Fetch(ctx, id string) (Item, error)` or `UserSchema: + role field` — not "adds new method"> |
 
 ## Key decisions
-
 Decisions that must be confirmed or made during implementation. Link to an
-
 ADR if already recorded; mark `TBD` if still open (a TBD here is a build
-
 blocker — resolve before coding begins).
 
 - [ ] <Decision statement> → [ADR-NNNN](../decisions/NNNN-short.md) or `TBD`
 
 > **TBD rule:** every `TBD` entry must be presented with a proposed
-
 > resolution at plan review and receive explicit approval before any build
-
 > agent begins work. Convert approved resolutions to ADR references before
-
 > handing this plan to a build agent.
 
 ## Edge cases
-
 - **<scenario>**: <how it is handled or why it is explicitly deferred>
 
 ## Tests / validation
-
 - **Unit:** <what gets unit-tested and at what threshold>
-
 - **Integration:** <what gets integration-tested>
-
 - **Acceptance:** <observable definition of done — behaviour, not coverage>
 
 ## Risk register
-
 | Risk | Likelihood | Impact | Mitigation |
-
 |------|-----------|--------|------------|
-
 | <risk description> | low / med / high | low / med / high | <concrete mitigation step> |
 
 > **Mitigation rule:** name a specific mechanism — a retry limit, a circuit
-
 > breaker, a validation schema, a feature flag, an alerting threshold.
-
 > "Monitor carefully," "test thoroughly," and "handle gracefully" are not
-
 > mitigations.
+```
 
