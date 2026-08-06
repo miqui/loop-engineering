@@ -1,6 +1,6 @@
 ---
 title: Hermes Project Kickoff
-version: 1.3.4
+version: 1.3.5
 status: stable
 date: 2026-08-05
 ---
@@ -115,13 +115,13 @@ When the final step is confirmed complete, update `docs/plans/<slug>-plan.md` us
   - Acceptance criteria: confirm all Tests / validation criteria from the plan passed, or note any outstanding items
 
 
-Documentation rules (apply to every artifact)
-Front-matter on each file: title, status (draft | proposed | accepted | superseded | implemented), date, owner, slug, related (links to sibling docs / ADRs). Use implemented on plan docs only, once Phase 3 completion is confirmed.
-ADR shape: Context → Decision → Status → Consequences → Alternatives considered.
-Idempotency: if a target file already exists, do not overwrite silently — append a dated revision/changelog entry and update status + date. Never destroy a prior decision; supersede it and link the replacement. When appending a revision, open with a two-sentence summary of what changed and why before the revised content.
-Traceability: design doc links its ADRs; plan links the design doc; each ADR back-links to the plan step it drives.
-Git: Before any git add, verify git rev-parse --is-inside-work-tree returns true. If the check fails, skip all git operations, note that staging was skipped, and remind me to initialize a repo. If the check passes, stage new/changed docs and stop. Propose a conventional commit message (docs(<slug>): …) but do not commit or push unless I say so.
-Pre-write gate: confirm the exact target paths with me before the first write of each phase.
+### Documentation rules (apply to every artifact)
+- **Front-matter** on each file: `title`, `status` (`draft` | `proposed` | `accepted` | `superseded` | `implemented`), `date`, `owner`, `slug`, `related` (links to sibling docs / ADRs). Use `implemented` on plan docs only, once Phase 3 completion is confirmed.
+- **ADR shape**: Context → Decision → Status → Consequences → Alternatives considered.
+- **Idempotency**: if a target file already exists, do not overwrite silently — append a dated revision/changelog entry and update status + date. Never destroy a prior decision; supersede it and link the replacement. When appending a revision, open with a two-sentence summary of what changed and why before the revised content.
+- **Traceability**: design doc links its ADRs; plan links the design doc; each ADR back-links to the plan step it drives.
+- **Git**: Before any `git add`, verify `git rev-parse --is-inside-work-tree` returns true. If the check fails, skip all git operations, note that staging was skipped, and remind me to initialize a repo. If the check passes, stage new/changed docs and stop. Propose a conventional commit message (`docs(<slug>): …`) but do not commit or push unless I say so.
+- **Pre-write gate**: confirm the exact target paths with me before the first write of each phase.
 
 
 Appendix — copy-paste templates
