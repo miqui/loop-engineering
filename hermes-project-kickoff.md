@@ -1,6 +1,6 @@
 ---
 title: Hermes Project Kickoff
-version: 1.3.3
+version: 1.3.4
 status: stable
 date: 2026-08-05
 ---
@@ -79,43 +79,40 @@ If the Phase 0 survey found the existing project has no unit test runner wired, 
 Do not code yet. Before presenting the plan for review, enumerate every remaining TBD entry in the Key decisions section. For each, provide a proposed resolution or flag it explicitly as a pre-build blocker requiring my decision. A plan may be presented with open TBDs only if each is accompanied by a concrete proposal; a plan with silent or unaddressed TBDs must not be presented or handed to a build agent.
 
 
-Phase 3 — build (per-step HITL)
+### Phase 3 — build (per-step HITL)
 Do not begin Phase 3 until the plan is approved and all TBD entries in the Key decisions section are resolved and replaced with ADR references.
 
 Work through plan steps in the order defined in the plan. After implementing each step, stop and present a build checkpoint before beginning the next step. Do not proceed until I confirm. If I request changes at any build checkpoint, revise and re-present before continuing. Do not advance to the next step until I explicitly confirm.
-Build checkpoint format (after every step)
+
+#### Build checkpoint format (after every step)
 Present the following after each step:
 
-Build checkpoint N — <step title>
-
-Files changed: Every file touched, its change type (new / modify / delete), and the actual interface delta vs. the interface delta in the plan's file inventory. Flag any divergence explicitly.
-
-Plan fidelity: Did this step implement exactly what the plan specified? If it deviated — different files, different interface, different approach — describe the deviation and open an ADR candidate for it.
-
-TBDs surfaced: Any new unknowns discovered during implementation. Each is an immediate blocker — stop, open an ADR candidate, and await my decision before continuing. Do not work around a TBD silently.
-
-Tests: What was tested and whether it passes. A step is not complete until its acceptance criteria from the plan are met.
-
-Next: <step N+1 title, or "implementation complete" if this was the last step>
+**Build checkpoint N — <step title>**
+- **Files changed**: Every file touched, its change type (new / modify / delete), and the actual interface delta vs. the interface delta in the plan's file inventory. Flag any divergence explicitly.
+- **Plan fidelity**: Did this step implement exactly what the plan specified? If it deviated — different files, different interface, different approach — describe the deviation and open an ADR candidate for it.
+- **TBDs surfaced**: Any new unknowns discovered during implementation. Each is an immediate blocker — stop, open an ADR candidate, and await my decision before continuing. Do not work around a TBD silently.
+- **Tests**: What was tested and whether it passes. A step is not complete until its acceptance criteria from the plan are met.
+- **Next**: <step N+1 title, or "implementation complete" if this was the last step>
 
 Review focus: do the changed files match the planned inventory? does the interface delta match what the plan specified? are acceptance criteria met for this step?
-Build phase rules
-Do not begin step N+1 until I explicitly confirm step N is complete.
-Once step N is confirmed complete, check it off in docs/plans/<slug>-plan.md's Steps section before starting step N+1. This file is the source of truth for resuming an interrupted build — do not rely on chat history to know which steps are done.
-Never work around a problem silently — surface every unexpected constraint, missing dependency, or wrong assumption before continuing.
-If implementation reveals a design flaw (wrong component boundary, missing contract, incorrect interface assumption), stop immediately and ask whether to resolve it inline with a new ADR or return to Phase 2. If returning to Phase 2 for a second time on the same flaw, escalate to Phase 1 instead — treat the flaw as a new constraint on the direction decision and work through Steps 1–3 before rewriting the plan.
-If three or more steps have deviated from the plan — where a deviation means different files touched, different interface exposed, or different approach taken than the plan specified — stop and propose a plan revision before continuing.
-For each ADR candidate opened during Phase 3, present it for my approval at the next build checkpoint. Once I approve, assign it the next available NNNN number, update its status to accepted, write it to docs/decisions/NNNN-<short-title>.md, and add a link in the plan's Key decisions section.
-Phase 3 completion
-When the final step is confirmed complete, update docs/plans/<slug>-plan.md using the idempotency rule (append, do not overwrite):
 
-Update front-matter status to implemented and date to today's date. If any acceptance criteria are outstanding, do not set status to implemented — leave it as accepted, flag every outstanding item explicitly, and do not stage until I acknowledge them.
-Append an ## Implementation summary section containing:
-Date completed
-Steps completed (N of N)
-Deviations from plan: each deviation and the ADR number that covers it, or "none"
-ADRs opened in Phase 3: all, with final accepted NNNN references
-Acceptance criteria: confirm all Tests / validation criteria from the plan passed, or note any outstanding items
+#### Build phase rules
+- Do not begin step N+1 until I explicitly confirm step N is complete.
+- Once step N is confirmed complete, check it off in `docs/plans/<slug>-plan.md`'s Steps section before starting step N+1. This file is the source of truth for resuming an interrupted build — do not rely on chat history to know which steps are done.
+- Never work around a problem silently — surface every unexpected constraint, missing dependency, or wrong assumption before continuing.
+- If implementation reveals a design flaw (wrong component boundary, missing contract, incorrect interface assumption), stop immediately and ask whether to resolve it inline with a new ADR or return to Phase 2. If returning to Phase 2 for a second time on the same flaw, escalate to Phase 1 instead — treat the flaw as a new constraint on the direction decision and work through Steps 1–3 before rewriting the plan.
+- If three or more steps have deviated from the plan — where a deviation means different files touched, different interface exposed, or different approach taken than the plan specified — stop and propose a plan revision before continuing.
+- For each ADR candidate opened during Phase 3, present it for my approval at the next build checkpoint. Once I approve, assign it the next available NNNN number, update its status to accepted, write it to `docs/decisions/NNNN-<short-title>.md`, and add a link in the plan's Key decisions section.
+
+#### Phase 3 completion
+When the final step is confirmed complete, update `docs/plans/<slug>-plan.md` using the idempotency rule (append, do not overwrite):
+- Update front-matter status to `implemented` and date to today's date. If any acceptance criteria are outstanding, do not set status to `implemented` — leave it as `accepted`, flag every outstanding item explicitly, and do not stage until I acknowledge them.
+- Append an `## Implementation summary` section containing:
+  - Date completed
+  - Steps completed (N of N)
+  - Deviations from plan: each deviation and the ADR number that covers it, or "none"
+  - ADRs opened in Phase 3: all, with final accepted NNNN references
+  - Acceptance criteria: confirm all Tests / validation criteria from the plan passed, or note any outstanding items
 
 
 Documentation rules (apply to every artifact)

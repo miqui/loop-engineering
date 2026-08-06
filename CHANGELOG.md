@@ -3,6 +3,16 @@
 All notable changes to the prompts in this repo are documented here.
 Versions are tagged in git and published as GitHub Releases.
 
+## [1.3.4] - 2026-08-05
+
+`hermes-project-kickoff.md`:
+
+- Reformatted Phase 3 (build): `###` phase heading, `####` sub-headings
+  for Build checkpoint format / Build phase rules / Phase 3 completion,
+  bulleted field labels and rules, nested Implementation summary
+  sub-items, backtick'd paths and status values. Formatting only, no
+  behavior change.
+
 ## [1.3.3] - 2026-08-05
 
 `hermes-project-kickoff.md`:
