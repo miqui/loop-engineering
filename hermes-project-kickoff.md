@@ -1,6 +1,6 @@
 ---
 title: Hermes Project Kickoff
-version: 1.3.1
+version: 1.3.2
 status: stable
 date: 2026-08-05
 ---
@@ -35,31 +35,35 @@ Reusable kickoff prompt. Two human-in-the-loop design phases, then persist every
   - Do not write any artifact to disk until its phase's final HITL checkpoint is approved.
 
 
-Phase 1 — idea-refine (human-in-the-loop)
+### Phase 1 — idea-refine (human-in-the-loop)
 Work through the three steps below in sequence. Each checkpoint is embedded at the point where it fires — stop and wait for my input before continuing to the next step. Do not batch steps or skip ahead. If I request changes at any checkpoint, revise and re-present the full output for that checkpoint before proceeding. Do not advance to the next step until I explicitly confirm the revised version.
-Step 1 → Checkpoint 1: Problem framing
-Restate the problem clearly.
-Identify the target user / use case.
-Surface assumptions explicitly.
 
-HITL checkpoint 1 — stop here. Present the problem restatement, target user, and assumptions. Wait for my input before proceeding to Step 2. Review focus: is the problem statement accurate? are all key assumptions surfaced and correctly framed?
-Step 2 → Checkpoint 2: Options & tradeoffs
-Propose 2–4 plausible directions, not a huge brainstorm.
-Compare tradeoffs honestly.
+#### Step 1 → Checkpoint 1: Problem framing
+- Restate the problem clearly.
+- Identify the target user / use case.
+- Surface assumptions explicitly.
 
-HITL checkpoint 2 — stop here. Present the options and tradeoff comparison. Wait for my input before proceeding to Step 3. Review focus: are all plausible directions represented? are the tradeoffs honestly stated and not loaded toward a preferred answer?
-Step 3 → Checkpoint 3: Direction, component map & scope
-Recommend one direction.
-Sketch the component map for the recommended direction: identify top-level modules, their responsibilities, and the contracts between them.
-Define MVP scope.
-Define an explicit not-doing list.
-Call out edge cases, failure modes, and risks early.
-Identify the decisions where I should weigh in before planning.
+**HITL checkpoint 1** — stop here. Present the problem restatement, target user, and assumptions. Wait for my input before proceeding to Step 2. Review focus: is the problem statement accurate? are all key assumptions surfaced and correctly framed?
 
-HITL checkpoint 3 — stop here. Present the recommended direction, component map (with all TBDs enumerated and a proposed resolution for each), MVP scope, not-doing list, edge cases, and weigh-in decisions together. Wait for my explicit approval of every item before writing any artifact. Review focus: does the direction align with the approved problem framing? does the component map cover all necessary modules with concrete contracts? is the MVP scope appropriately bounded?
-Artifacts (write only after checkpoint 3 is approved):
-docs/design/<slug>-design.md — capture every section above: problem, target user, assumptions, the 2–4 options with honest tradeoffs, the recommended direction, component map, MVP scope, not-doing list, and edge cases / failure modes / risks.
-For each discrete decision I weighed in on, write an ADR: docs/decisions/NNNN-<short-title>.md (zero-padded, incrementing, never reused).
+#### Step 2 → Checkpoint 2: Options & tradeoffs
+- Propose 2–4 plausible directions, not a huge brainstorm.
+- Compare tradeoffs honestly.
+
+**HITL checkpoint 2** — stop here. Present the options and tradeoff comparison. Wait for my input before proceeding to Step 3. Review focus: are all plausible directions represented? are the tradeoffs honestly stated and not loaded toward a preferred answer?
+
+#### Step 3 → Checkpoint 3: Direction, component map & scope
+- Recommend one direction.
+- Sketch the component map for the recommended direction: identify top-level modules, their responsibilities, and the contracts between them.
+- Define MVP scope.
+- Define an explicit not-doing list.
+- Call out edge cases, failure modes, and risks early.
+- Identify the decisions where I should weigh in before planning.
+
+**HITL checkpoint 3** — stop here. Present the recommended direction, component map (with all TBDs enumerated and a proposed resolution for each), MVP scope, not-doing list, edge cases, and weigh-in decisions together. Wait for my explicit approval of every item before writing any artifact. Review focus: does the direction align with the approved problem framing? does the component map cover all necessary modules with concrete contracts? is the MVP scope appropriately bounded?
+
+**Artifacts** (write only after checkpoint 3 is approved):
+- `docs/design/<slug>-design.md` — capture every section above: problem, target user, assumptions, the 2–4 options with honest tradeoffs, the recommended direction, component map, MVP scope, not-doing list, and edge cases / failure modes / risks.
+- For each discrete decision I weighed in on, write an ADR: `docs/decisions/NNNN-<short-title>.md` (zero-padded, incrementing, never reused).
 
 
 Phase 2 — writing-plans (no code yet)

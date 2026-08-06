@@ -3,6 +3,15 @@
 All notable changes to the prompts in this repo are documented here.
 Versions are tagged in git and published as GitHub Releases.
 
+## [1.3.2] - 2026-08-05
+
+`hermes-project-kickoff.md`:
+
+- Reformatted Phase 1 (idea-refine) from flat run-on lines into a `###`
+  phase heading, `####` Step → Checkpoint sub-headings, bulleted action
+  items, and bolded HITL checkpoint / Artifacts labels. Formatting only,
+  no behavior change.
+
 ## [1.3.1] - 2026-08-05
 
 `hermes-project-kickoff.md`:
