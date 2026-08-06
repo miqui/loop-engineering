@@ -3,6 +3,31 @@
 All notable changes to the prompts in this repo are documented here.
 Versions are tagged in git and published as GitHub Releases.
 
+## [bugfix v1.0.0] - 2026-08-05
+
+`hermes-bug-fix.md`:
+
+- Initial versioned release. A phase-gated prompt for fixing a single
+  reported bug in an existing project: Phase 0 (setup, codebase + test-runner
+  survey, resume detection), Phase 1 (reproduce → root cause & blast radius →
+  fix approach & scope, 3 HITL checkpoints), Phase 2 (test-first build —
+  regression test written and confirmed failing before the fix, full suite
+  must stay green, per-step HITL).
+- Root-cause step makes no assumption that the target codebase has ADRs,
+  changelogs, or any other decision-record convention — uses whatever
+  history/evidence is actually available and says so explicitly when the
+  originating change can't be confidently determined.
+- Build phase treats a pre-existing test broken by the fix as a hard
+  blocker: never edited/skipped/deleted to force the suite green; either the
+  fix is wrong or updating the test is a deliberate change requiring
+  explicit approval.
+- Reuses ADR mechanics, idempotency, traceability, git-staging, and
+  pre-write-gate rules from `hermes-project-kickoff.md` for consistency
+  across prompts in this repo.
+
+This repo's tagging/changelog scheme is now namespaced by prompt key
+(`kickoff`, `bugfix`) since prompts version independently — see AGENTS.md.
+
 ## [1.3.6] - 2026-08-05
 
 `hermes-project-kickoff.md`:

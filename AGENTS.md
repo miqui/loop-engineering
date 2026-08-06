@@ -5,16 +5,25 @@ Guidance for any agent (human or AI) making changes in this repo.
 ## What this repo is
 
 A collection of reusable, versioned prompts for running human-in-the-loop
-agentic sessions with Hermes. `hermes-project-kickoff.md` is the first one:
-a phase-gated prompt for kicking off a new project or a new feature in an
-existing project.
+agentic sessions with Hermes:
+
+- `hermes-project-kickoff.md` (`kickoff`) — a phase-gated prompt for kicking
+  off a new project or a new feature in an existing project.
+- `hermes-bug-fix.md` (`bugfix`) — a phase-gated prompt for fixing a single
+  reported bug in an existing project: reproduce → diagnose & fix approach →
+  test-first build.
 
 ## Versioning a prompt file
 
 Each prompt file carries its own version in YAML front-matter
-(`title`, `version`, `status`, `date`). Bump it whenever the *behavior* of
-the prompt changes — wording-only cleanups that don't change what Hermes
-does are not required to bump.
+(`title`, `version`, `status`, `date`), independent of the other prompts in
+this repo. Bump it whenever the *behavior* of the prompt changes —
+wording-only cleanups that don't change what Hermes does are not required
+to bump.
+
+Because multiple prompts version independently, tags and changelog entries
+are namespaced by a short prompt key (`kickoff`, `bugfix`, ...) so a bare
+version number is never ambiguous about which file it belongs to.
 
 Go-forward process for a change to a prompt file:
 
@@ -25,15 +34,20 @@ Go-forward process for a change to a prompt file:
      compatible with sessions already in flight.
    - Major (`X.0.0`): restructures phases/checkpoints in a way that would
      break resuming a session started under the previous version.
-2. Add a `## [x.y.z] - YYYY-MM-DD` entry to `CHANGELOG.md`, above the
-   previous entry, describing what changed and why (not just what).
+2. Add a `## [<prompt-key> vx.y.z] - YYYY-MM-DD` entry to `CHANGELOG.md`,
+   above the previous entry, describing what changed and why (not just
+   what). `CHANGELOG.md` is shared across all prompts in this repo.
 3. Commit the prompt file + changelog together.
-4. Tag the commit `vX.Y.Z` and push the tag.
-5. `gh release create vX.Y.Z --notes-file CHANGELOG.md` (or hand-write
-   release notes scoped to just that version's entry).
+4. Tag the commit `<prompt-key>-vX.Y.Z` and push the tag.
+5. `gh release create <prompt-key>-vX.Y.Z --notes-file <scoped-notes>` with
+   release notes scoped to just that version's changelog entry.
 
 A pinned version is fetchable at:
-`raw.githubusercontent.com/miqui/loop-engineering/vX.Y.Z/<file>.md`
+`raw.githubusercontent.com/miqui/loop-engineering/<prompt-key>-vX.Y.Z/<file>.md`
+
+Note: releases tagged bare `vX.Y.Z` (no prompt-key prefix, up to `v1.3.6`)
+predate this scheme and refer to `hermes-project-kickoff.md`. They are left
+as-is; the next kickoff release picks up the `kickoff-` prefix.
 
 ## Editing conventions for prompt files
 
