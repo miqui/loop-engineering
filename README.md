@@ -1,3 +1,6 @@
+<img width="678" height="452" alt="image" src="https://github.com/user-attachments/assets/d8422091-61cf-4b20-8407-28b45f2aa7b8" />
+
+
 ## Loop Engineering
 
 A collection of reusable, versioned prompts for running human-in-the-loop
