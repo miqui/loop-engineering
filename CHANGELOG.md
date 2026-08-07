@@ -3,6 +3,48 @@
 All notable changes to the prompts in this repo are documented here.
 Versions are tagged in git and published as GitHub Releases.
 
+## [bugfix v2.0.0] - 2026-08-06
+
+`hermes-bug-fix.md`:
+
+- **Why**: v1.0.0's Phase 2 gated every fix step behind a HITL checkpoint
+  unconditionally, regardless of how confident the approved Phase 1
+  diagnosis was. Evaluated against intent-driven.dev's framing — capture
+  intent as a durable, reviewable spec, then let the agent execute
+  independently against it, validating the result at the end — this was a
+  gap: the loop already produces a real spec at checkpoint 3 (root cause,
+  blast radius, fix approach, regression test definition) but never let
+  that spec's strength buy any autonomy back. Per-step gating was a
+  constant, not a function of how well-specified the fix was.
+- **What changed**: Checkpoint 3 now also proposes an **autonomy tier**
+  (`exception-based` | `per-step`) derived from signals Phase 1 already
+  surfaces — root-cause confidence, blast-radius size, whether competing
+  approaches had to be presented, whether an ADR was required — and I
+  approve it as part of the same checkpoint. `exception-based` runs Phase 2
+  to a single consolidated checkpoint, self-verifying tests mechanically
+  along the way; `per-step` keeps v1.0.0's behavior. A fixed set of
+  **exception triggers** (new TBD, deviation from approved approach,
+  pre-existing test broken, fix doesn't resolve repro) stops execution
+  immediately regardless of tier — these separate mechanical verification
+  (agent can self-check) from judgment calls (still require me).
+- **Split-harness consideration**: the bugfix doc is written assuming the
+  agent executing Phase 2 may have no memory of the Phase 1 conversation —
+  a resumed session, or potentially a separate execution run entirely. So
+  the autonomy tier and exception triggers are written into the doc as
+  spec content, not left implicit in conversational tone. When a trigger
+  fires, the doc's `status` flips to `blocked` and a `## Blocker` section
+  is appended (trigger, step, file state, resolution path) as a durable
+  handoff point rather than a live wait — extending the same
+  file-is-source-of-truth discipline Phase 0's resume detection already
+  used for same-session interruptions.
+- Added `blocked` to the front-matter status enum (bug docs only, alongside
+  `resolved`); Phase 0 step 3 now surfaces a blocker's contents before
+  offering to resume.
+- Major bump: changes checkpoint 3's approval surface (autonomy tier is now
+  part of what's approved) and Phase 2's checkpoint semantics — an in-flight
+  v1.0.0 session should finish under v1.0.0 rules rather than resume under
+  v2.0.0.
+
 ## [bugfix v1.0.0] - 2026-08-05
 
 `hermes-bug-fix.md`:
